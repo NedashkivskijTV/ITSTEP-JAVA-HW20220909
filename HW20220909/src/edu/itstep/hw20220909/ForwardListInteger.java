@@ -9,36 +9,51 @@ public class ForwardListInteger {
         //this.tail = null;
     }
 
+    public ForwardListInteger(int... values) {
+        for (int val : values) {
+            addToHead(val);
+        }
+    }
+
     // AddToHead
-    public void addToHead(int val){
-        Node newNode = new Node(val, this.head);
-        this.head = newNode;
+    public void addToHead(int val) {
+        this.head = new Node(val, this.head);
     }
 
     // AddToTail
-    public void addToTail(int val){
-        Node newTail = new Node(val);
-        Node temp = this.head;
-        while (temp.getNext() != null){
-            temp = temp.getNext();
+    public void addToTail(int val) {
+        if (this.head == null) {
+            addToHead(val);
+        } else {
+            Node newTail = new Node(val);
+            Node temp = this.head;
+            while (temp.getNext() != null) {
+                temp = temp.getNext();
+            }
+            temp.setNext(newTail);
         }
-        temp.setNext(newTail);
     }
 
     // DeleteFromHead
-    public void deleteFromHead(){
-        if(this.head != null){
-            Node newHead = this.head;
-            this.head = newHead.getNext();
+    public void deleteFromHead() {
+        if (this.head != null) {
+            this.head = this.head.getNext();
+//            Node newHead = this.head;
+//            this.head = newHead.getNext();
         }
     }
 
     // DeleteFromTail
-    public void deleteFromTail(){
-        if(this.head != null){
+    public void deleteFromTail() {
+        if (this.head == null) {
+            return;
+        }
+        if (this.head.getNext() == null) {
+            this.head = null;
+        } else {
             Node temp = this.head;
             Node newTail = null;
-            while (temp.getNext() != null){
+            while (temp.getNext() != null) {
                 newTail = temp;
                 temp = temp.getNext();
             }
@@ -47,9 +62,9 @@ public class ForwardListInteger {
     }
 
     // Show
-    public void showList(){
+    public void showList() {
         Node temp = this.head;
-        while (temp != null){
+        while (temp != null) {
             temp.showNode();
             //System.out.println();
             temp = temp.getNext();
@@ -89,7 +104,8 @@ public class ForwardListInteger {
         public void setNext(Node next) {
             this.next = next;
         }
-        public void showNode(){
+
+        public void showNode() {
             System.out.print(this.value + " ");
         }
     }
